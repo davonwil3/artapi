@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+       
+    }
+    nav{
+        background-color: rgb(41, 40, 40);
+        height: 80px;
+        width: 100%;
+    }
+    ul{
+        float: right;
+        margin-right: 20px;
+    }
+    ul li{
+        display: inline-block;
+        line-height: 80px;
+        margin: 0 5px;
+    }
+    ul li a{
+        text-decoration: none;
+        color: #fff;
+        padding: 5px 20px;
+        border: 1px solid transparent;
+        transition: 0.6s ease;
+    }
+    ul li a:hover{
+        background-color: #fff;
+        color: #000;
+    }
+    ul li.active a{
+        background-color: #fff;
+        color: #000;
+    }
+    button{
+        background-color: rgb(48, 84, 202);
+        color: #fff;
+        border: 1px solid #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+    button:hover{
+        background-color: #113c87;
+        
+    }
+
+    
+</style>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-banner">
+        <div class="banner-text">
+            <h1>Velo Art Gallery</h1>
+            <p>A collection of amazing art</p>
+            
+        </div>
+    </div>
+
+    <div class="gallery-container">
+        <div class="gallery">
+            <div class="gallery-row">
+                <div class="gallery-item">
+                    <h2>Amphora (Storage Jar)</h2>
+                    <img src="images/1889.24 - Amphora (Storage Jar).jpg" alt="" onclick="openModal('images/1889.24 - Amphora (Storage Jar).jpg', 181 )">
+                   
+                </div>
+                <div class="gallery-item">
+                    <h2>Stela of Amenemhat and Hemet</h2>
+                    <img src="images/1920.262 - Stela of Amenemhat and Hemet.jpg" alt="" onclick="openModal('images/1920.262 - Stela of Amenemhat and Hemet.jpg', 127859 )">
+                </div>
+                <div class="gallery-item">
+                    <h2>A Sunday on La Grande Jatte</h2>
+                    <img src="images/1926.224 - A Sunday on La Grande Jatte — 1884.jpg" alt="" onclick="openModal('images/1926.224 - A Sunday on La Grande Jatte — 1884.jpg', 27992 )">
+                </div>
+            </div>
+            <div class="gallery-row">
+                <div class="gallery-item">
+                    <h2>Woman Reading</h2>
+                    <img src="images/1933.435 - Woman Reading.jpg" alt="" onclick="openModal('images/1933.435 - Woman Reading.jpg', 14591 )">
+                </div>
+                <div class="gallery-item">
+                    <h2>Paris Street; Rainy Day</h2>
+                    <img src="images/1964.336 - Paris Street; Rainy Day.jpg" alt="" onclick="openModal('images/1964.336 - Paris Street; Rainy Day.jpg', 20684 )">
+                </div>
+                <div class="gallery-item">
+                    <h2>Buddha Shakyamuni Seated in Meditation</h2>
+                    <img src="images/1964.556 - Buddha Shakyamuni Seated in Meditation....jpg" alt="" onclick="openModal('images/1964.556 - Buddha Shakyamuni Seated in Meditation....jpg', 21023 )">
+                </div>
+            </div>
+            <div class="gallery-row">
+                <div class="gallery-item">
+                    <h2>Shiva as Lord of the Dance</h2>
+                    <img src="images/1965.1130 - Shiva as Lord of the Dance (Nataraja).jpg" alt="" onclick="openModal('images/1965.1130 - Shiva as Lord of the Dance (Nataraja).jpg', 24548 )">
+                </div>
+                <div class="gallery-item">
+                    <h2>Veranda Post </h2>
+                    <img src="images/1984.550 - Veranda Post (Òpó Ògògá).jpg" alt="" onclick="openModal('images/1984.550 - Veranda Post (Òpó Ògògá).jpg', 102611 )">
+                </div>
+                <div class="gallery-item">
+                    <h2>Horse and Rider</h2>
+                    <img src="images/2003.114 - Horse and Rider.jpg" alt="" onclick="openModal('images/2003.114 - Horse and Rider.jpg', 181145)">
+                </div>
+            </div>
+            <div class="gallery-row">
+                <div class="gallery-item">
+                    <h2>King Vulture</h2>
+                    <img src="images/2007.105 - King Vulture.jpg" alt="" onclick="openModal('images/2007.105 - King Vulture.jpg', 189715 )">
+                </div>
+            </div>
+        </div> 
+    </div> 
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-title"></h2>
+            <img src="" alt="" class="modal-image">
+            <p class="modal-description"></p>
+        </div>
+    </div>
+
+
+<script>
+ 
+    var modal = document.getElementById("myModal");
+    var closeBtn = document.getElementsByClassName("close")[0];
+
+    function openModal(src, artid) {
+        modal.style.display = "block";
+        document.getElementsByClassName("modal-image")[0].src = src;
+
+        fetch('https://api.artic.edu/api/v1/artworks/' + artid)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementsByClassName("modal-title")[0].innerHTML = data.data.title;
+                document.getElementsByClassName("modal-description")[0].innerHTML = data.data.description;
+            });
+    }
+
+    closeBtn.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+</body>
+</html>
